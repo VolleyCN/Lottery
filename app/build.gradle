@@ -1,0 +1,91 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+
+    aaptOptions {
+        cruncherEnabled = false
+        useNewCruncher = false
+    }
+
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+    useLibrary 'org.apache.http.legacy'
+    defaultConfig {
+        versionCode rootProject.ext.android.versionCode
+        // 01 00 00 00, 前6位与versionName保持一致，后6位保留使用
+        versionName rootProject.ext.android.versionName
+        applicationId rootProject.ext.android.applicationId
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a"
+        }
+
+        packagingOptions {
+            doNotStrip '*/mips/*.so'
+            doNotStrip '*/mips64/*.so'
+        }
+        multiDexEnabled true
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("justyu.keystore")
+            storePassword "justyu2020"
+            keyAlias "justyu"
+            keyPassword "justyu2020"
+        }
+    }
+
+    buildTypes {
+        //正式版本
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-project.txt'
+            signingConfig signingConfigs.release
+            zipAlignEnabled true
+        }
+    }
+
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'libs', "../module_ali/libs"
+    }
+    mavenCentral()
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':lottery')
+    implementation rootProject.ext.dependencies.multidex
+    implementation rootProject.ext.dependencies.support_v4
+    implementation rootProject.ext.dependencies.support_design
+    implementation rootProject.ext.dependencies.appcompat_v7
+    implementation rootProject.ext.dependencies.recyclerview_v7
+    implementation rootProject.ext.dependencies.cardview
+    implementation rootProject.ext.dependencies.orhanobut_logger
+    implementation rootProject.ext.dependencies.kotlin
+    implementation rootProject.ext.dependencies.constraint
+    implementation rootProject.ext.dependencies.adapter
+    implementation rootProject.ext.dependencies.utilcode
+    implementation 'android.arch.navigation:navigation-fragment:1.0.0'
+    implementation 'android.arch.navigation:navigation-ui:1.0.0'
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}

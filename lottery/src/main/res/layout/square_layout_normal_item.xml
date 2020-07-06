@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dimen_75"
+    android:layout_height="@dimen/dimen_75">
+
+    <TextView
+        android:id="@+id/lottery_square_item_gift_des"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="@string/app_name"
+        android:textColor="@color/design_default_color_primary"
+        android:textSize="@dimen/front_size_8" />
+
+    <FrameLayout
+        android:layout_width="@dimen/dimen_75"
+        android:layout_height="@dimen/dimen_75"
+        android:layout_gravity="center_horizontal">
+
+        <ImageView
+            android:id="@+id/lottery_square_item_bg"
+            android:layout_width="@dimen/dimen_47"
+            android:layout_height="@dimen/dimen_47"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            android:src="@drawable/square_lottery_item_unfocus" />
+
+        <ImageView
+            android:id="@+id/lottery_square_item_focus"
+            android:layout_width="@dimen/dimen_75"
+            android:layout_height="@dimen/dimen_75"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            android:src="@drawable/square_lottery_item_focus"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/lottery_square_item_gift"
+            android:layout_width="@dimen/dimen_30"
+            android:layout_height="@dimen/dimen_30"
+            android:layout_gravity="center"
+            android:scaleType="centerInside" />
+
+    </FrameLayout>
+</FrameLayout>
